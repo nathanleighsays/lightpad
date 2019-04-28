@@ -1,0 +1,254 @@
+/*
+
+<metadata description="Dynamic Parameters">
+    <groups>
+        <group name="pos"    displayName="Position" />
+        <group name="size"   displayName="Size"     />
+        <group name="colour" displayName="Colour"   />
+    </groups>
+    <variables>
+        <variable group="pos"    name="xPos"   type="int"   min="0" max="15"  value="0"   />
+        <variable group="pos"    name="yPos"   type="int"   min="0" max="15"  value="0"   />
+        <variable group="size"   name="width"  type="int"   min="1" max="15"  value="3"   />
+        <variable group="size"   name="height" type="int"   min="1" max="15"  value="3"   />
+        <variable group="colour" name="alpha"  type="float" min="0" max="255" value="255" />
+        <variable group="colour" name="red"    type="int"   min="0" max="255" value="255" />
+        <variable group="colour" name="green"  type="int"   min="0" max="255" value="0"   />
+        <variable group="colour" name="blue"   type="int"   min="0" max="255" value="255"   />
+
+        <variable name="padColour0"  displayName="Pad 1 Colour" group="colours" type="colour" value="0x4c2d1b" />
+        <variable name="padColour1"  displayName="Pad 2 Colour" group="colours" type="colour" value="0x4c1b1b" />
+        <variable name="padColour2"  displayName="Pad 3 Colour" group="colours" type="colour" value="0x4c1b40" />
+        <variable name="padColour3"  displayName="Pad 4 Colour" group="colours" type="colour" value="0x3a1b4c" /> 
+        <variable name="padColour4"  displayName="Pad 5 Colour" group="colours" type="colour" value="0x231b4c" />
+        <variable name="padColour5"  displayName="Pad 6 Colour" group="colours" type="colour" value="0x1b364c" />
+        <variable name="padColour6"  displayName="Pad 7 Colour" group="colours" type="colour" value="0x1b4c43" />
+        <variable name="padColour7"  displayName="Pad 8 Colour" group="colours" type="colour" value="0x244c1b" />
+        <variable name="padColour8"  displayName="Pad 9 Colour" group="colours" type="colour" value="0x4c4a1b" />
+
+        <variable name="faderColour0"  displayName="Pad 1 Colour" group="colours" type="colour" value="0xf49541" />
+        <variable name="faderColour1"  displayName="Pad 2 Colour" group="colours" type="colour" value="0xf4f441" />
+        <variable name="faderColour2"  displayName="Pad 3 Colour" group="colours" type="colour" value="0x6df441" />
+        <variable name="faderColour3"  displayName="Pad 4 Colour" group="colours" type="colour" value="0x41f4b5" />
+        <variable name="faderColour4"  displayName="Pad 5 Colour" group="colours" type="colour" value="0x418ef4" />
+        <variable name="faderColour5"  displayName="Pad 6 Colour" group="colours" type="colour" value="0xa341f4" />
+
+
+
+        </variables>
+</metadata>
+
+
+*/
+
+// startup
+
+void initialise() 
+{
+    clearDisplay();
+    drawPads();
+    drawFaders();
+}
+
+// draws the initial faders
+
+void drawFaders()
+{
+    fillRect (faderColour0, 0, 11, 2, 1);
+    fillRect (faderColour1, 2, 11, 2, 1);
+    fillRect (faderColour2, 4, 11, 2, 1);
+    fillRect (faderColour3, 6, 11, 2, 1);
+    fillRect (faderColour4, 8, 11, 2, 1);
+    fillRect (faderColour5, 10, 11, 2, 1);
+}
+
+// draws pads
+
+void drawPads() 
+{
+    fillRect (padColour0, 12, 0, 3, 3);
+    fillRect (padColour1, 12, 3, 3, 3);
+    fillRect (padColour2, 12, 6, 3, 3);
+    fillRect (padColour3, 12, 9, 3, 3);
+    fillRect (padColour4, 12, 12, 3, 3);
+    fillRect (padColour5, 9, 12, 3, 3);
+    fillRect (padColour6, 6, 12, 3, 3);
+    fillRect (padColour7, 3, 12, 3, 3);
+    fillRect (padColour8, 0, 12, 3, 3);
+}
+
+// action on press
+
+void touchStart (int touchIndex, float x, float y, float z, float vz) {
+    int padNumber = getPadNumber(x, y);
+
+    int NoteVel = int (126 * z);
+
+    if (padNumber < 9)
+    sendNoteOn(0, padNumber+60, NoteVel);
+
+//    int velocity  = getVelocityForVz (vz);
+    
+    setHeapByte(touchIndex, padNumber);
+    
+    
+//    drawNumber (intz, 0xbbdd9900, 1, 5);
+//    drawNumber (padNumber, 0xbbdd9900, 3, 3);
+//    drawNumber (xPos, 0xbbdd9900, 1, 5);
+}
+
+// action on move
+
+void touchMove (int touchIndex, float x, float y, float z, float vz) {
+    int padNumber = getPadNumber(x, y);
+    int intz = int (36 * (z * 7));
+    int red = (intz);
+    int blue = (255 - intz);
+    int xPos = getxPos(x);
+    int yPos = getyPos(y);
+    int padCCchan = 100 + padNumber;
+    int padCCval = int (126 * z);
+//    int vzbig = int (100 * vz);
+//    int velocity  = getVelocityForVz (vz);
+
+    setHeapByte(touchIndex, padNumber);
+
+        
+    if (padNumber < 9)
+    sendCC (0,padCCchan, padCCval);    
+
+    
+    if (padNumber < 9)
+    blendRect (makeARGB (int (alpha), red, green, blue), xPos, yPos, width, height);
+    else
+    moveFader(x,y);
+
+    
+//    drawNumber (velocity, 0xbbdd9900, 1, 5);
+
+}
+
+// action on release
+
+void touchEnd (int touchIndex, float x, float y, float z, float vz) 
+{
+    int padNumber = getHeapByte(touchIndex);
+    int intz = int (36 * (z * 7));
+
+    sendNoteOff(0, padNumber+60, 127);
+
+    int xPos = getxPos(x);
+    int yPos = getyPos(y);
+    int padCol = getPadColor(x,y);
+    
+    if (intz < 1 && padNumber < 9)
+    fillRect (padCol, xPos, yPos, width, height);    
+}
+
+
+// Pad Tools
+
+int getPadNumber (float x, float y) 
+{
+    if (y < 0.4 && x > 1.6) return 8;
+    else if (y > 0.4 && y < 0.8 && x > 1.6) return 7;
+    else if (y > 0.8 && y < 1.2 && x > 1.6) return 6;
+    else if (y > 1.2 && y < 1.6 && x > 1.6) return 5;
+    else if (y > 1.6 && y < 2 && x > 1.6 && x < 2) return 4;
+    else if (x < 0.4 && y > 1.6) return 0;
+    else if (x > 0.4 && x < 0.8 && y > 1.6) return 1;
+    else if (x > 0.8 && x < 1.2 && y > 1.6) return 2;
+    else if (x > 1.2 && x < 1.6 && y > 1.6) return 3;
+    else return 9;
+}
+
+int getPadColor (float x, float y) 
+{
+    if (y < 0.4 && x > 1.6) return padColour8;
+    else if (y > 0.4 && y < 0.8 && x > 1.6) return padColour7;
+    else if (y > 0.8 && y < 1.2 && x > 1.6) return padColour6;
+    else if (y > 1.2 && y < 1.6 && x > 1.6) return padColour5;
+    else if (y > 1.6 && y < 2 && x > 1.6 && x < 2) return padColour4;
+    else if (x < 0.4 && y > 1.6) return padColour0;
+    else if (x > 0.4 && x < 0.8 && y > 1.6) return padColour1;
+    else if (x > 0.8 && x < 1.2 && y > 1.6) return padColour2;
+    else return padColour3;
+}
+
+
+int getxPos (float x) {
+    if (x < 0.4) return 0;
+    else if (x > 0.4 && x < 0.8) return 3;
+    else if (x > 0.8 && x < 1.2) return 6;
+    else if (x > 1.2 && x < 1.6) return 9;
+    else return 12;
+}
+
+int getyPos (float y) {
+    if (y < 0.4) return 0;
+    else if (y > 0.4 && y < 0.8) return 3;
+    else if (y > 0.8 && y < 1.2) return 6;
+    else if (y > 1.2 && y < 1.6) return 9;
+    else return 12;
+}
+
+
+
+// Fader Tools
+
+int getFaderNumber (float x, float y) 
+{
+    if (x < 0.26) return 0;
+    else if (x > 0.26 && x < 0.52) return 1;
+    else if (x > 0.52 && x < 0.8) return 2;
+    else if (x > 0.8 && x < 1.06) return 3;
+    else if (x > 1.06 && x < 1.33) return 4;
+    else return 5;
+}
+
+int getfaderCol (float x)
+{
+    if (x < 0.26) return faderColour0;
+    else if (x > 0.26 && x < 0.52) return faderColour1;
+    else if (x > 0.52 && x < 0.8) return faderColour2;
+    else if (x > 0.8 && x < 1.06) return faderColour3;
+    else if (x > 1.06 && x < 1.33) return faderColour4;
+    else return faderColour5;
+}    
+
+int getCCchan (float x)
+{
+    if (x < 0.26) return 110;
+    else if (x > 0.26 && x < 0.52) return 111;
+    else if (x > 0.52 && x < 0.8) return 112;
+    else if (x > 0.8 && x < 1.06) return 113;
+    else if (x > 1.06 && x < 1.33) return 114;
+    else return 115;
+}    
+
+void moveFader(float x, float y)
+{
+    int faderNumber = getFaderNumber(x, y);
+    
+    int inty = int (y * 7);
+    int faderHeight = (12 - inty);
+    int clearHeight = (inty - 3);
+    int faderPos = ((faderNumber*2));
+	int faderIndex  = faderNumber;
+    int faderCol = getfaderCol (x);
+	int CCval = int (128 / (y * 7));
+    int CCchan = getCCchan (x);
+	
+	fillRect (0x000000, faderPos, 0, 2, inty);
+    fillRect (faderCol, faderPos, inty, 2, faderHeight);
+    sendCC (0,CCchan, CCval);
+    
+    
+//    drawNumber (CCval, 0xbbdd9900, 2, 0);
+}
+
+
+int getVelocityForVz (float vz)
+{
+    return clamp (1, 127, int (vz * 127.0));
+}
