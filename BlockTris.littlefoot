@@ -1,0 +1,1375 @@
+/*
+<metadata description="Left ands Right to move, tap bottom of Lightpad to rotate" details="coded by Nathan Leigh">
+s</metadata>
+*/
+s
+bool playing;
+int currentX;
+float currentY;
+float speed;
+int borderColour;
+int currentColour;
+int currentShape;
+
+int startX;
+
+int s0x;
+int s0y;
+int s1x;
+int s1y;
+int s2x;
+int s2y;
+int s3x;
+int s3y;
+int s4x;
+int s4y;
+
+bool t00;
+bool t01;
+bool t02;
+bool t03;
+bool t10;
+bool t11;
+bool t12;
+bool t13;
+bool t20;
+bool t21;
+bool t22;
+bool t23;
+bool t30;
+bool t31;
+bool t32;
+bool t33;
+
+int score;
+int scoreHold;
+int timer;
+int startTime;
+bool showTime;
+int p00;
+int p01;
+int p02;
+int p03;
+int p04;
+int p05;
+int p06;
+int p07;
+int p08;
+int p09;
+int p10;
+int p11;
+int p12;
+int p13;
+int p14;
+int p15;
+int p16;
+int p17;
+int p18;
+int p19;
+int p20;
+int p21;
+int p22;
+int p23;
+int p24;
+int p25;
+int p26;
+int p27;
+int p28;
+int p29;
+int p30;
+int p31;
+int p32;
+int p33;
+int p34;
+int p35;
+int p36;
+int p37;
+int p38;
+int p39;
+int p40;
+int p41;
+int p42;
+int p43;
+int p44;
+int p45;
+int p46;
+int p47;
+int p48;
+int p49;
+int p50;
+int p51;
+int p52;
+int p53;
+int p54;
+int p55;
+int p56;
+int p57;
+int p58;
+int p59;
+int p60;
+int p61;
+int p62;
+int p63;
+int p64;
+int p65;
+int p66;
+int p67;
+int p68;
+int p69;
+int p70;
+int p71;
+int p72;
+int p73;
+int p74;
+int p75;
+int p76;
+int p77;
+int p78;
+int p79;
+int p80;
+int p81;
+int p82;
+int p83;
+int p84;
+int p85;
+int p86;
+int p87;
+int p88;
+int p89;
+int p90;
+int p91;
+int p92;
+int p93;
+int p94;
+int p95;
+int p96;
+int p97;
+int p98;
+int p99;
+int pA0;
+int pA1;
+int pA2;
+int pA3;
+int pA4;
+int pA5;
+int pA6;
+int pA7;
+int pA8;
+int pA9;
+int pB0;
+int pB1;
+int pB2;
+int pB3;
+int pB4;
+int pB5;
+int pB6;
+int pB7;
+int pB8;
+int pB9;
+int pC0;
+int pC1;
+int pC2;
+int pC3;
+int pC4;
+int pC5;
+int pC6;
+int pC7;
+int pC8;
+int pC9;
+int pD0;
+int pD1;
+int pD2;
+int pD3;
+int pD4;
+int pD5;
+int pD6;
+int pD7;
+int pD8;
+int pD9;
+
+void setPixel(int colour, int x, int y)
+{
+    int tempX = x -3;
+
+    if (y == 1)
+    {
+        if (tempX == 0)
+            p00 = colour;
+        else if (tempX == 1)
+            p11 = colour;
+        else if (tempX == 2)
+            p12 = colour;
+        else if (tempX == 3)
+            p13 = colour;
+        else if (tempX == 4)
+            p14 = colour;
+        else if (tempX == 5)
+            p15 = colour;
+        else if (tempX == 6)
+            p16 = colour;
+        else if (tempX == 7)
+            p17 = colour;
+        else if (tempX == 8)
+            p18 = colour;
+        else if (tempX == 9)
+            p19 = colour;
+    }
+    else if (y == 2)
+    {
+        if (tempX == 0)
+            p20 = colour;
+        else if (tempX == 1)
+            p21 = colour;
+        else if (tempX == 2)
+            p22 = colour;
+        else if (tempX == 3)
+            p23 = colour;
+        else if (tempX == 4)
+            p24 = colour;
+        else if (tempX == 5)
+            p25 = colour;
+        else if (tempX == 6)
+            p26 = colour;
+        else if (tempX == 7)
+            p27 = colour;
+        else if (tempX == 8)
+            p28 = colour;
+        else if (tempX == 9)
+            p29 = colour;
+    }
+    else if (y == 3)
+    {
+        if (tempX == 0)
+            p30 = colour;
+        else if (tempX == 1)
+            p31 = colour;
+        else if (tempX == 2)
+            p32 = colour;
+        else if (tempX == 3)
+            p33 = colour;
+        else if (tempX == 4)
+            p34 = colour;
+        else if (tempX == 5)
+            p35 = colour;
+        else if (tempX == 6)
+            p36 = colour;
+        else if (tempX == 7)
+            p37 = colour;
+        else if (tempX == 8)
+            p38 = colour;
+        else if (tempX == 9)
+            p39 = colour;
+    }
+    else if (y == 4)
+    {
+        if (tempX == 0)
+            p40 = colour;
+        else if (tempX == 1)
+            p41 = colour;
+        else if (tempX == 2)
+            p42 = colour;
+        else if (tempX == 3)
+            p43 = colour;
+        else if (tempX == 4)
+            p44 = colour;
+        else if (tempX == 5)
+            p45 = colour;
+        else if (tempX == 6)
+            p46 = colour;
+        else if (tempX == 7)
+            p47 = colour;
+        else if (tempX == 8)
+            p48 = colour;
+        else if (tempX == 9)
+            p49 = colour;
+    }
+    else if (y == 5)
+    {
+        if (tempX == 0)
+            p50 = colour;
+        else if (tempX == 1)
+            p51 = colour;
+        else if (tempX == 2)
+            p52 = colour;
+        else if (tempX == 3)
+            p53 = colour;
+        else if (tempX == 4)
+            p54 = colour;
+        else if (tempX == 5)
+            p55 = colour;
+        else if (tempX == 6)
+            p56 = colour;
+        else if (tempX == 7)
+            p57 = colour;
+        else if (tempX == 8)
+            p58 = colour;
+        else if (tempX == 9)
+            p59 = colour;
+    }
+    else if (y == 6)
+    {
+        if (tempX == 0)
+            p60 = colour;
+        else if (tempX == 1)
+            p61 = colour;
+        else if (tempX == 2)
+            p62 = colour;
+        else if (tempX == 3)
+            p63 = colour;
+        else if (tempX == 4)
+            p64 = colour;
+        else if (tempX == 5)
+            p65 = colour;
+        else if (tempX == 6)
+            p66 = colour;
+        else if (tempX == 7)
+            p67 = colour;
+        else if (tempX == 8)
+            p68 = colour;
+        else if (tempX == 9)
+            p69 = colour;
+    }
+    else if (y == 7)
+    {
+        if (tempX == 0)
+            p70 = colour;
+        else if (tempX == 1)
+            p71 = colour;
+        else if (tempX == 2)
+            p72 = colour;
+        else if (tempX == 3)
+            p73 = colour;
+        else if (tempX == 4)
+            p74 = colour;
+        else if (tempX == 5)
+            p75 = colour;
+        else if (tempX == 6)
+            p76 = colour;
+        else if (tempX == 7)
+            p77 = colour;
+        else if (tempX == 8)
+            p78 = colour;
+        else if (tempX == 9)
+            p79 = colour;
+    }
+    else if (y == 8)
+    {
+        if (tempX == 0)
+            p80 = colour;
+        else if (tempX == 1)
+            p81 = colour;
+        else if (tempX == 2)
+            p82 = colour;
+        else if (tempX == 3)
+            p83 = colour;
+        else if (tempX == 4)
+            p84 = colour;
+        else if (tempX == 5)
+            p85 = colour;
+        else if (tempX == 6)
+            p86 = colour;
+        else if (tempX == 7)
+            p87 = colour;
+        else if (tempX == 8)
+            p88 = colour;
+        else if (tempX == 9)
+            p89 = colour;
+    }
+    else if (y == 9)
+    {
+        if (tempX == 0)
+            p90 = colour;
+        else if (tempX == 1)
+            p91 = colour;
+        else if (tempX == 2)
+            p92 = colour;
+        else if (tempX == 3)
+            p93 = colour;
+        else if (tempX == 4)
+            p94 = colour;
+        else if (tempX == 5)
+            p95 = colour;
+        else if (tempX == 6)
+            p96 = colour;
+        else if (tempX == 7)
+            p97 = colour;
+        else if (tempX == 8)
+            p98 = colour;
+        else if (tempX == 9)
+            p99 = colour;
+    }
+    else if (y == 10)
+    {
+        if (tempX == 0)
+            pA0 = colour;
+        else if (tempX == 1)
+            pA1 = colour;
+        else if (tempX == 2)
+            pA2 = colour;
+        else if (tempX == 3)
+            pA3 = colour;
+        else if (tempX == 4)
+            pA4 = colour;
+        else if (tempX == 5)
+            pA5 = colour;
+        else if (tempX == 6)
+            pA6 = colour;
+        else if (tempX == 7)
+            pA7 = colour;
+        else if (tempX == 8)
+            pA8 = colour;
+        else if (tempX == 9)
+            pA9 = colour;
+    }
+    else if (y == 11)
+    {
+        if (tempX == 0)
+            pB0 = colour;
+        else if (tempX == 1)
+            pB1 = colour;
+        else if (tempX == 2)
+            pB2 = colour;
+        else if (tempX == 3)
+            pB3 = colour;
+        else if (tempX == 4)
+            pB4 = colour;
+        else if (tempX == 5)
+            pB5 = colour;
+        else if (tempX == 6)
+            pB6 = colour;
+        else if (tempX == 7)
+            pB7 = colour;
+        else if (tempX == 8)
+            pB8 = colour;
+        else if (tempX == 9)
+            pB9 = colour;
+    }
+
+}
+
+int getPixel(int x, int y)
+{
+    int tempX = x - 3;
+
+    if (y == 1)
+    {
+        if (tempX == 0)
+            return p10;
+        else if (tempX == 1)
+            return p11;
+        else if (tempX == 2)
+            return p12;
+        else if (tempX == 3)
+            return p13;
+        else if (tempX == 4)
+            return p14;
+        else if (tempX == 5)
+            return p15;
+        else if (tempX == 6)
+            return p16;
+        else if (tempX == 7)
+            return p17;
+        else if (tempX == 8)
+            return p18;
+        else if (tempX == 9)
+            return p19;
+    }
+    else if (y == 2)
+    {
+        if (tempX == 0)
+            return p20;
+        else if (tempX == 1)
+            return p21;
+        else if (tempX == 2)
+            return p22;
+        else if (tempX == 3)
+            return p23;
+        else if (tempX == 4)
+            return p24;
+        else if (tempX == 5)
+            return p25;
+        else if (tempX == 6)
+            return p26;
+        else if (tempX == 7)
+            return p27;
+        else if (tempX == 8)
+            return p28;
+        else if (tempX == 9)
+            return p29;
+    }
+    else if (y == 3)
+    {
+        if (tempX == 0)
+            return p30;
+        else if (tempX == 1)
+            return p31;
+        else if (tempX == 2)
+            return p32;
+        else if (tempX == 3)
+            return p33;
+        else if (tempX == 4)
+            return p34;
+        else if (tempX == 5)
+            return p35;
+        else if (tempX == 6)
+            return p36;
+        else if (tempX == 7)
+            return p37;
+        else if (tempX == 8)
+            return p38;
+        else if (tempX == 9)
+            return p39;
+    }
+    else if (y == 4)
+    {
+        if (tempX == 0)
+            return p40;
+        else if (tempX == 1)
+            return p41;
+        else if (tempX == 2)
+            return p42;
+        else if (tempX == 3)
+            return p43;
+        else if (tempX == 4)
+            return p44;
+        else if (tempX == 5)
+            return p45;
+        else if (tempX == 6)
+            return p46;
+        else if (tempX == 7)
+            return p47;
+        else if (tempX == 8)
+            return p48;
+        else if (tempX == 9)
+            return p49;
+    }
+    else if (y == 5)
+    {
+        if (tempX == 0)
+            return p50;
+        else if (tempX == 1)
+            return p51;
+        else if (tempX == 2)
+            return p52;
+        else if (tempX == 3)
+            return p53;
+        else if (tempX == 4)
+            return p54;
+        else if (tempX == 5)
+            return p55;
+        else if (tempX == 6)
+            return p56;
+        else if (tempX == 7)
+            return p57;
+        else if (tempX == 8)
+            return p58;
+        else if (tempX == 9)
+            return p59;
+    }
+    else if (y == 6)
+    {
+        if (tempX == 0)
+            return p60;
+        else if (tempX == 1)
+            return p61;
+        else if (tempX == 2)
+            return p62;
+        else if (tempX == 3)
+            return p63;
+        else if (tempX == 4)
+            return p64;
+        else if (tempX == 5)
+            return p65;
+        else if (tempX == 6)
+            return p66;
+        else if (tempX == 7)
+            return p67;
+        else if (tempX == 8)
+            return p68;
+        else if (tempX == 9)
+            return p69;
+    }
+    else if (y == 7)
+    {
+        if (tempX == 0)
+            return p70;
+        else if (tempX == 1)
+            return p71;
+        else if (tempX == 2)
+            return p72;
+        else if (tempX == 3)
+            return p73;
+        else if (tempX == 4)
+            return p74;
+        else if (tempX == 5)
+            return p75;
+        else if (tempX == 6)
+            return p76;
+        else if (tempX == 7)
+            return p77;
+        else if (tempX == 8)
+            return p78;
+        else if (tempX == 9)
+            return p79;
+    }
+    else if (y == 8)
+    {
+        if (tempX == 0)
+            return p80;
+        else if (tempX == 1)
+            return p81;
+        else if (tempX == 2)
+            return p82;
+        else if (tempX == 3)
+            return p83;
+        else if (tempX == 4)
+            return p84;
+        else if (tempX == 5)
+            return p85;
+        else if (tempX == 6)
+            return p86;
+        else if (tempX == 7)
+            return p87;
+        else if (tempX == 8)
+            return p88;
+        else if (tempX == 9)
+            return p89;
+    }
+    else if (y == 9)
+    {
+        if (tempX == 0)
+            return p90;
+        else if (tempX == 1)
+            return p91;
+        else if (tempX == 2)
+            return p92;
+        else if (tempX == 3)
+            return p93;
+        else if (tempX == 4)
+            return p94;
+        else if (tempX == 5)
+            return p95;
+        else if (tempX == 6)
+            return p96;
+        else if (tempX == 7)
+            return p97;
+        else if (tempX == 8)
+            return p98;
+        else if (tempX == 9)
+            return p99;
+    }
+    else if (y == 10)
+    {
+        if (tempX == 0)
+            return pA0;
+        else if (tempX == 1)
+            return pA1;
+        else if (tempX == 2)
+            return pA2;
+        else if (tempX == 3)
+            return pA3;
+        else if (tempX == 4)
+            return pA4;
+        else if (tempX == 5)
+            return pA5;
+        else if (tempX == 6)
+            return pA6;
+        else if (tempX == 7)
+            return pA7;
+        else if (tempX == 8)
+            return pA8;
+        else if (tempX == 9)
+            return pA9;
+    }
+    else if (y == 11)
+    {
+        if (tempX == 0)
+            return pB0;
+        else if (tempX == 1)
+            return pB1;
+        else if (tempX == 2)
+            return pB2;
+        else if (tempX == 3)
+            return pB3;
+        else if (tempX == 4)
+            return pB4;
+        else if (tempX == 5)
+            return pB5;
+        else if (tempX == 6)
+            return pB6;
+        else if (tempX == 7)
+            return pB7;
+        else if (tempX == 8)
+            return pB8;
+        else if (tempX == 9)
+            return pB9;
+    }
+
+    return 0;
+}
+
+
+
+void initialise()
+{
+    playing = false;
+    startScreen();
+    setDefaults();
+}
+
+
+void setDefaults()
+{
+    borderColour = 0xff000044;
+    scoreHold = 1000;
+}
+
+void newGame()
+{
+    for (int i = 0; i < 15; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            setPixel(0,j,i);
+        }
+    }
+
+    
+    startX = 6;
+    score = 0;
+    timer = 0;
+    startTime = getMillisecondCounter();
+    speed = 0.1;
+    currentX = startX;
+    currentY = 0;
+    currentShape = getNewShape();
+    setShape();
+    makeShape();
+    drawCurrentShape();        
+    
+    playing = true;
+}
+
+void startScreen()
+{
+    blendRect(0x4400ff00, 0, 0, 15, 15);    
+}
+
+void showScore()
+{
+    drawNumber(score, 0xffffffff, 0, 0);
+}
+
+int getNewShape()
+{
+    int newShape = getRandomInt(7);
+    if (newShape == 0 || newShape == 5)
+        currentX = startX+1;
+    else
+        currentX = startX;
+    currentY = 0;
+    
+    return newShape;
+}
+
+void setShape()
+{
+    if (currentShape == 0)
+    {
+        setShapeA();
+    }
+    else if (currentShape == 1)
+    {
+        setShapeB();
+    }
+    else if (currentShape == 2)
+    {
+        setShapeC();
+    }
+    else if (currentShape == 3)
+    {
+        setShapeD();
+    }
+    else if (currentShape == 4)
+    {
+        setShapeE();
+    }
+    else if (currentShape == 5)
+    {
+        setShapeF();
+    }
+    else if (currentShape == 6)
+    {
+        setShapeG();
+    }
+}
+
+void updateScore(int amount)
+{
+    score += amount;
+    showTime = true;
+    startTime = getMillisecondCounter();    
+}
+
+void setShapeA()
+{    
+    currentColour = 0xfff7d407;
+    
+    t00 = false;
+    t01 = false;
+    t02 = false;
+    t03 = false;
+    t10 = false;
+    t11 = true;
+    t12 = true;
+    t13 = false;
+    t20 = false;
+    t21 = true;
+    t22 = true;
+    t23 = false;
+    t30 = false;
+    t31 = false;
+    t32 = false;
+    t33 = false;
+
+}
+
+void setShapeB()
+{
+    currentColour = 0xff32c6f1;
+
+    t00 = false;
+    t01 = false;
+    t02 = false;
+    t03 = false;
+    t10 = true;
+    t11 = true;
+    t12 = true;
+    t13 = true;
+    t20 = false;
+    t21 = false;
+    t22 = false;
+    t23 = false;
+    t30 = false;
+    t31 = false;
+    t32 = false;
+    t33 = false;
+
+}
+
+void setShapeC()
+{
+    currentColour = 0xff5a65ad;
+    t00 = false;
+    t01 = false;
+    t02 = false;
+    t03 = false;
+    t10 = false;
+    t11 = false;
+    t12 = false;
+    t13 = false;
+    t20 = true;
+    t21 = true;
+    t22 = true;
+    t23 = false;
+    t30 = true;
+    t31 = false;
+    t32 = false;
+    t33 = false;
+
+}
+
+void setShapeD()
+{
+    currentColour = 0xffef7922;
+    t00 = false;
+    t01 = false;
+    t02 = false;
+    t03 = false;
+    t10 = false;
+    t11 = false;
+    t12 = true;
+    t13 = false;
+    t20 = true;
+    t21 = true;
+    t22 = true;
+    t23 = false;
+    t30 = false;
+    t31 = false;
+    t32 = false;
+    t33 = false;
+
+}
+
+void setShapeE()
+{
+    currentColour = 0xffea2329;
+    t00 = false;
+    t01 = false;
+    t02 = false;
+    t03 = false;
+    t10 = false;
+    t11 = true;
+    t12 = true;
+    t13 = false;
+    t20 = true;
+    t21 = true;
+    t22 = false;
+    t23 = false;
+    t30 = false;
+    t31 = false;
+    t32 = false;
+    t33 = false;
+
+}
+
+void setShapeF()
+{
+    currentColour = 0xff41b641;
+    t00 = false;
+    t01 = false;
+    t02 = false;
+    t03 = false;
+    t10 = true;
+    t11 = true;
+    t12 = false;
+    t13 = false;
+    t20 = false;
+    t21 = true;
+    t22 = true;
+    t23 = false;
+    t30 = false;
+    t31 = false;
+    t32 = false;
+    t33 = false;
+
+}
+
+void setShapeG()
+{
+    currentColour = 0xffae4d9e;
+    t00 = false;
+    t01 = false;
+    t02 = false;
+    t03 = false;
+    t10 = true;
+    t11 = true;
+    t12 = true;
+    t13 = false;
+    t20 = false;
+    t21 = true;
+    t22 = false;
+    t23 = false;
+    t30 = false;
+    t31 = false;
+    t32 = false;
+    t33 = false;
+    
+}
+
+void setCoords(int coordsSet, int x, int y)
+{
+    if (coordsSet == 0)
+    {
+        s0x = x;
+        s0y = y;
+    }
+    else if (coordsSet == 1)
+    {
+        s1x = x;
+        s1y = y;
+    }
+    else if (coordsSet == 2)
+    {
+        s2x = x;
+        s2y = y;
+    }
+    else if (coordsSet == 3)
+    {
+        s3x = x;
+        s3y = y;
+    }
+}
+
+void makeShape()
+{
+    int coordsSet = 0;
+    int tempX = currentX;
+    int tempY = int (currentY);
+    if (t00)
+    {
+        setCoords(coordsSet, tempX-1, tempY-1);
+        coordsSet++;
+    }
+    if (t01)
+    {
+        setCoords(coordsSet, tempX, tempY-1);
+        coordsSet++;
+    }
+    if (t02)
+    {
+        setCoords(coordsSet, tempX+1, tempY-1);
+        coordsSet++;
+    }
+    if (t03)
+    {
+        setCoords(coordsSet, tempX+2, tempY-1);
+        coordsSet++;
+    }
+    if (t10)
+    {
+        setCoords(coordsSet, tempX-1, tempY);
+        coordsSet++;
+    }
+    if (t11)
+    {
+        setCoords(coordsSet, tempX, tempY);
+        coordsSet++;
+    }
+    if (t12)
+    {
+        setCoords(coordsSet, tempX+1, tempY);
+        coordsSet++;
+    }
+    if (t13)
+    {
+        setCoords(coordsSet, tempX+2, tempY);
+        coordsSet++;
+    }
+    if (t20)
+    {
+        setCoords(coordsSet, tempX-1, tempY+1);
+        coordsSet++;
+    }
+    if (t21)
+    {
+        setCoords(coordsSet, tempX, tempY+1);
+        coordsSet++;
+    }
+    if (t22)
+    {
+        setCoords(coordsSet, tempX+1, tempY+1);
+        coordsSet++;
+    }
+    if (t23)
+    {
+        setCoords(coordsSet, tempX+2, tempY+1);
+        coordsSet++;
+    }
+    if (t30)
+    {
+        setCoords(coordsSet, tempX-1, tempY+2);
+        coordsSet++;
+    }
+    if (t31)
+    {
+        setCoords(coordsSet, tempX, tempY+2);
+        coordsSet++;
+    }
+    if (t32)
+    {
+        setCoords(coordsSet, tempX+1, tempY+2);
+        coordsSet++;
+    }
+    if (t33)
+    {
+        setCoords(coordsSet, tempX+2, tempY+2);
+        coordsSet++;
+    }
+}
+
+int getLargestY()
+{
+    int maxY = 0;
+    
+    if (s0y > maxY)
+        maxY = s0y;
+    if (s1y > maxY)
+        maxY = s1y;
+    if (s2y > maxY)
+        maxY = s2y;
+    if (s3y > maxY)
+        maxY = s3y;
+            
+    return maxY;
+}
+
+int getLargestX()
+{
+    int maxX = 0;
+    
+    if (s0x > maxX)
+        maxX = s0x;
+    if (s1x > maxX)
+        maxX = s1x;
+    if (s2x > maxX)
+        maxX = s2x;
+    if (s3x > maxX)
+        maxX = s3x;
+            
+    return maxX;
+}
+
+int getSmallestX()
+{
+    int minX = 15;
+    
+    if (s0x < minX)
+        minX = s0x;
+    if (s1x < minX)
+        minX = s1x;
+    if (s2x < minX)
+        minX = s2x;
+    if (s3x < minX)
+        minX = s3x;
+            
+    return minX;
+}
+
+
+void addToMap()
+{
+        setPixel(currentColour, s0x, s0y);
+        setPixel(currentColour, s1x, s1y);
+        setPixel(currentColour, s2x, s2y);
+        setPixel(currentColour, s3x, s3y);
+}
+
+void dropRow(int y)
+{
+    for(int i = 0; i < 16; i++)
+    {
+        setPixel(0, i, y);
+    }
+    for (int i = y; i >= 0; i--)
+    {
+        for (int j = 0; j < 16; j++)
+        {
+            setPixel(getPixel(j,i-1), j, i);
+        }
+    }
+
+}
+
+bool checkRow(int y)
+{
+    
+    int colCt = 0;
+    for (int i = 0; i < 13; i++)
+    {
+        int tempColour = getPixel(i, y);
+        if (tempColour != 0)
+        {
+            colCt ++;
+        }
+        
+    }
+    if (colCt >= 9)
+    {
+        dropRow(y);
+        speed += 0.01;
+        return true;
+    }
+
+    return false;
+}
+
+int checkRows()
+{
+    int rowCt = 0;
+    for (int i = 15; i >= 0; i--)
+    {
+        if (checkRow(i))
+            rowCt ++;
+    }
+
+    if (rowCt > 0)
+    {
+        updateScore(rowCt);
+        log(rowCt);
+    }
+
+    return rowCt;
+}
+
+int checkCollision()
+{
+    int maxY = getLargestY();
+    if (maxY >= 11)
+    {
+        return 1;
+    }
+    int s0z = getPixel(s0x, s0y+1);
+    int s1z = getPixel(s1x, s1y+1);
+    int s2z = getPixel(s2x, s2y+1);
+    int s3z = getPixel(s3x, s3y+1);
+    
+    if (s0z != 0 || s1z != 0 || s2z != 0 || s3z !=0)
+    {
+        if (maxY == 1)
+            return 2;
+        else
+            return 1;
+    }    
+    
+    return 0;
+}
+
+void drawStaticShapes()
+{
+    fillRect(borderColour, 0, 0, 3, 15);
+    fillRect(borderColour, 12, 0, 3, 15);
+    fillRect(borderColour, 0, 12, 15, 3);
+    
+    for (int i = 0; i < 15; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            int tempColour = getPixel(j, i);
+            if (tempColour != 0)
+            {
+                fillPixel(tempColour, j, i);
+            }
+        }
+    }
+}
+
+void rotateShape()
+{
+    bool m00 = t00;
+    bool m01 = t01;
+    bool m02 = t02;
+    bool m03 = t03;
+    bool m10 = t10;
+    bool m11 = t11;
+    bool m12 = t12;
+    bool m13 = t13;
+    bool m20 = t20;
+    bool m21 = t21;
+    bool m22 = t22;
+    bool m23 = t23;
+    bool m30 = t30;
+    bool m31 = t31;
+    bool m32 = t32;
+    bool m33 = t33;
+    
+    t00 = m03;
+    t30 = m00;
+    t33 = m30;
+    t03 = m33;
+    t32 = m20;
+    t13 = m32;
+    t01 = m13;
+    t20 = m01;
+    t10 = m02;
+    t31 = m10;
+    t23 = m31;
+    t02 = m23;
+    t11 = m12;
+    t21 = m11;
+    t22 = m21;
+    t12 = m22;
+}
+
+void moveShape(int dX, int dY)
+{
+        s0y += dY;
+        s1y += dY;
+        s2y += dY;
+        s3y += dY;
+        s0x += dX;
+        s1x += dX;
+        s2x += dX;
+        s3x += dX;
+}
+
+void drawCurrentShape()
+{
+    if (int (currentY) > getLargestY())
+    {
+        moveShape(0, 1);
+    }
+    fillPixel(currentColour, s0x, s0y);
+    fillPixel(currentColour, s1x, s1y);
+    fillPixel(currentColour, s2x, s2y);
+    fillPixel(currentColour, s3x, s3y);
+}
+
+void repaint()
+{
+    clearDisplay();
+    if (playing)
+    {
+        drawStaticShapes();
+        if (showTime)
+        {
+            timer = getMillisecondCounter() - startTime;
+            if (timer >= scoreHold)
+            {
+                timer = 0;
+                showTime = false;
+            }
+            else
+            {
+                showScore();
+            }
+        }
+        int collisionType = (checkCollision());
+        if (collisionType == 0)
+        {
+            currentY += (1 * speed);
+            drawCurrentShape();        
+        }
+        else if (collisionType == 1)
+        {
+            addToMap();
+            checkRows();
+            currentShape = getNewShape();
+            setShape();
+            makeShape();
+        }
+        else if (collisionType == 2)
+        {
+            playing = false;
+            drawStaticShapes();
+            startScreen();
+        }
+    }
+    else
+    {
+        drawStaticShapes();
+        startScreen();
+    }
+}
+
+void touchStart(int index, float x, float y, float z, float vz)
+{
+    if(playing)
+    {
+        int collisionType = checkCollision();
+        int maxX = getLargestX();
+        int minX = getSmallestX();
+        log(int(y*8));
+        if (y * 8 < 13)
+        {
+            if (minX >= 4 && (x * 8) <= minX-1 && collisionType == 0)
+            {
+                moveShape(-1,0);
+            }
+            else if (maxX < 11 && (x * 8) > maxX+1 && collisionType == 0)
+            {
+                moveShape(1,0);
+            }
+        }
+        else
+        {
+            log(9999);
+            rotateShape();
+            makeShape();
+        }
+    }
+    else
+    {
+        newGame();
+    }
+}
