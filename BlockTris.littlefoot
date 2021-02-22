@@ -2,7 +2,7 @@
 <metadata description="Left ands Right to move, tap bottom of Lightpad to rotate" details="coded by Nathan Leigh">
 s</metadata>
 */
-s
+
 bool playing;
 int currentX;
 float currentY;
